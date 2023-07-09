@@ -8,7 +8,6 @@ pygame.init()
 screen_width = 600
 screen_height = 500
 
-
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Pong')
 
@@ -35,12 +34,31 @@ def draw_text(text, font, text_col, x, y):
     screen.blit(img, (x, y))
 
 
+class paddle():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.rect = Rect(self.x, self.y, 20, 100)
+        self.speed = 5
+
+    def draw(self):
+        pygame.draw.rect(screen, white, self.rect)
+# creat paddles
+
+player_paddle = paddle(screen_width - 40, screen_height // 2)
+cpy_paddle = paddle(20, screen_height // 2)
+
 run = True
 while run:
 
     draw_board()
     draw_text('CPU: ' + str(cpu_score), font, white, 20, 15)
     draw_text('P1: ' + str(player_score), font, white, screen_width - 100, 15)
+
+    # draw paddle
+    player_paddle.draw()
+    cpy_paddle.draw()
+
     for event in pygame.event.get():  # all events
         if event.type == pygame.QUIT:
             run = False
